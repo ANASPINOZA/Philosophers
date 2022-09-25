@@ -1,6 +1,0 @@
-*.o
-*.obj
-*.a
-*.dSYM/
-.DS_Store
-.gitignore

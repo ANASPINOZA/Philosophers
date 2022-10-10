@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 18:30:08 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/05 13:47:02 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/07 18:26:42 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,17 @@ char	**check_argument(int ac, char **av)
 	i = 1;
 	while (av[i])
 	{
-		is_raw_number(av[i]);
-		is_integer(av[i]);
+		if (is_raw_number(av[i]))
+			return(NULL);
+		if (is_integer(av[i]))
+			return(NULL);
 		i++;
 	}
 	return (av);
 }
 
 // check if the element is a number
-void	is_raw_number(char *num)
+int	is_raw_number(char *num)
 {
 	int	i;
 
@@ -36,18 +38,19 @@ void	is_raw_number(char *num)
 	while (num[i])
 	{
 		if ( num[i] == '-')
-			ft_error();
+			return(1);
 		if ((num[i] == '+') && (ft_strlen(&num[i]) >= 2))
 			i++;
 		if (num[i] < '0' || num[i] > '9')
-			ft_error();
+			return(1);
 		i++;
 	}
+	return(0);
 }
 
 // check if the element is a number in an int range
 // (-2147483648 < number < 2147483647)
-void	is_integer(char *num)
+int	is_integer(char *num)
 {
 	int	num_len;
 	int	positive;
@@ -63,13 +66,18 @@ void	is_integer(char *num)
 		sign = 1;
 	}
 	if ((num_len - sign) > 10)
-		ft_error();
+		return(1);
 	if ((num_len - sign) == 10)
-		check_is_int_range(num, positive);
+	{
+		if(check_is_int_range(num, positive))
+			return(1);
+	}
+		return(0);
 }
 
-void	check_is_int_range(char *num, int positive)
+int	check_is_int_range(char *num, int positive)
 {
 	if ((ft_strcmp(&num[positive], INT_MAX)) > 0)
-		ft_error();
+		return(1);
+	return(0);
 }

@@ -6,13 +6,13 @@
 #    By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/23 11:54:10 by aadnane           #+#    #+#              #
-#    Updated: 2022/10/05 13:50:24 by aadnane          ###   ########.fr        #
+#    Updated: 2022/10/10 16:21:41 by aadnane          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
-SRCS = parsing.c philo.c utils.c #mandatory files
+SRCS = parsing.c philo.c utils.c philos_utils.c time_utils.c #mandatory files
 
 SRCB = #bonus files
 
@@ -39,8 +39,8 @@ clean :
 fclean : clean
 	rm -rf $(NAME) $(BONUS)
 
-deyoo :
-	make && make clean && clear
+deyoo :all clean
+	clear
 
 b:
 	make bonus && make clean && clear

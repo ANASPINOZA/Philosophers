@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:42:42 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/10 18:56:30 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/11 13:24:47 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,46 @@
 
 // eating sleep think
 // void	*ft_thinking(void *arg)
-// {
+// // {
 	
-// }
+// // }
 
-// void	*routine(void *data)
-// {
-// 	// (t_data *)data;
+void	*routine(void *philos)
+{
+	t_philo	*phils;
+	int		i;
 	
-	
-	
-	
-// }
+	i = 0;
+	phils = (struct s_philo *)philos;
+	while (i < phils->data->num_of_philos)
+	{
+		printf("%lld\n", phils[i].start_time);
+		i++;
+	}
+	return(NULL);
+}
 
 int main(int ac, char **av)
 {
 	int				j;
-	t_philo			*philos;
+	// t_philo			*philos;
+	t_data			data;
 	char			**arg;
 	int				i;																				
 	
 	i = 0;
 	j = 0;
-	
 // philos[0].id = new_thread[0];=
 	// pthread_mutex_init(&mutex, NULL);
 
 	if (ac != 5 && ac != 6)
 		return(write(1,"Error\n",6), 0);
-	create_philos(philos, av);
 	arg = check_argument(ac, av);
 	if (!arg)
 		return(write(1,"Error\n",6), 0);
+	// create_philos(philos, av);
+	create_philos(&data, av);
+	printf("here1\n");
 	// j = 0;
 	// printf("i1: %d\n", i);
 	// while (j < 5)

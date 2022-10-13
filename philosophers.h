@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 11:58:47 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/11 12:55:40 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/13 14:06:39 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ long long		get_time();
 void			thread_creation(t_data *data, int num);
 void			*routine(void *data);
 void			info_init(t_data *data);
-void	philos_init(t_data *data);
+void			philos_init(t_data *data);
+void 			init_forks (t_data *data);
+void 			join_threads (t_data *data);
 
 #endif

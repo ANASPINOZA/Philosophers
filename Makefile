@@ -6,12 +6,12 @@
 #    By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/23 11:54:10 by aadnane           #+#    #+#              #
-#    Updated: 2022/10/10 16:21:41 by aadnane          ###   ########.fr        #
+#    Updated: 2022/10/12 13:05:11 by aadnane          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Wextra -Werror 
 SRCS = parsing.c philo.c utils.c philos_utils.c time_utils.c #mandatory files
 
 SRCB = #bonus files
@@ -25,10 +25,10 @@ HEADER = philosophers.h
 all : $(NAME)
 
 $(BONUS) : $(OBJB)
-	$(CC) $^ -o $@
+	$(CC)  $^ -o $@
 
 $(NAME) : $(OBJS)
-	$(CC) $^ -o $@
+	$(CC) -lpthread $^ -o $@
 
 %.o  : %.c $(HEADER)
 	$(CC) $(FLAGS) -c $< -o $@

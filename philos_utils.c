@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:46:57 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/11 13:27:57 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/13 14:21:54 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 void	create_philos(t_data *data, char **av)
 {
-	int				j;
 	int				i;
 	int				num;
 	
 	i = 0;
-	j = 0;
-	
+
 	info_init(data);
-	printf("here5\n");
+	// printf("here5\n");
 	num = insert_infos(data, av);
+	// printf ("|%d|\n", num);
 	data->proce_start_time = get_time();
 	data->philos = malloc(sizeof(t_philo) * num);
 	data->forks = malloc(sizeof(pthread_mutex_t) * num);
@@ -35,19 +34,22 @@ void	create_philos(t_data *data, char **av)
 		data->philos[i].id = i + 1;
 		data->philos[i].start_time = get_time();
 		data->philos[i].left_fork = &data->forks[i];
-		data->philos[i].right_fork = &data->forks[i + 1];
-		if (i == (num - 1))
-			data->philos[i].right_fork = &data->forks[(i + 1) % num];
+		data->philos[i].right_fork = &data->forks[(i + 1) % num];
+		data->philos[i].data = data;
+		printf ("%d %d \n", i ,((i + 1) % num));
+		// if (i == (num - 1))
+		// 	data->philos[i].right_fork = &data->forks[(i + 1) % num];
 		i++;
 	}
-	printf("starting time for the process : %lld\n", data->proce_start_time);
-	while (j < data->num_of_philos)
-	{
-		printf("starting time for each philo : %lld\n", data->philos[j].start_time);
-		j++;
-	}
-	printf("starting time : %lld\n", data[j].proce_start_time);
-	// thread_creation(data, num);
+	// printf("starting time for the process : %lld\n", data->proce_start_time);
+	// while (j < data->num_of_philos)
+	// {
+	// 	printf("starting time for each philo : %lld\n", data->philos[j].start_time);
+	// 	j++;
+	// }
+	init_forks (data);
+	thread_creation (data, num);
+
 }
 
 int	insert_infos(t_data *data, char** av)
@@ -68,24 +70,14 @@ int	insert_infos(t_data *data, char** av)
 void	thread_creation(t_data *data, int num)
 {
 	int	i;
-	int	j;
 	
 	i = 0;
-	j = 1;
 	while(i < num)
 	{
-		printf("here2\n");
 		pthread_create(&data->philos[i].thread_id, NULL, &routine, &data->philos[i]);
-		// pthread_join(data->philos[i].thread_id, NULL);
 		i++;
 	}
-	i = 0;
-	while(i < num)
-	{
-		printf("here3\n");
-		pthread_join(data->philos[i].thread_id, NULL);
-		i++;
-	}
+	join_threads (data);
 }
 
 void	info_init(t_data *data)
@@ -109,6 +101,31 @@ void	philos_init(t_data *data)
 		data->philos[i].meals = 0;
 		data->philos[i].start_time = 0;
 		data->philos[i].last_eat = 0;
+		i++;
+	}
+}
+
+void  init_forks (t_data *data)
+{
+	int i;
+
+	 i = 0;
+	 while (i < data->num_of_philos)
+	 {
+		pthread_mutex_init (&(data->forks[i]), NULL);
+		i++;
+	 }
+}
+
+
+void join_threads (t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < data->num_of_philos)
+	{
+		pthread_join (data->philos[i].thread_id, NULL);
 		i++;
 	}
 }

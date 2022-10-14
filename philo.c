@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:42:42 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/14 11:57:19 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/14 15:50:18 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,21 @@ void	*routine(void *philos)
 	
 	i = 0;
 	phils = (t_philo *)philos;
-	// printfphils->data.
+	if (phils->id % 2 == 0)
+		usleep(phils->data->time_to_eat * 1000);
 	while (1)
 	{
 		pthread_mutex_lock (phils->left_fork);
 		pthread_mutex_lock (phils->right_fork);
-		printf ("|philo %d has taken left fork| %lld |\n", phils->id, get_time () - phils->start_time);
-		printf ("|philo %d has taken right fork| %lld |\n", phils->id, get_time () - phils->start_time);
-		printf ("%d is eating %lld \n",phils->id,  get_time () - phils->start_time);
-
-		usleep (200);
+		printf ("| %lld | philo %d has taken left fork\n", get_time () - phils->start_time, phils->id);
+		printf ("| %lld | philo %d has taken right fork\n", get_time () - phils->start_time, phils->id);
+		printf ("| %lld | philo %d is eating\n", get_time () - phils->start_time, phils->id);
+		usleep (phils->data->time_to_eat * 1000);
 		pthread_mutex_unlock (phils->left_fork);
 		pthread_mutex_unlock (phils->right_fork);
+		printf ("| %lld | philo %d is sleeping\n", get_time () - phils->start_time, phils->id);
+		usleep (phils->data->time_to_sleep * 1000);
+		// printf ("| %lld | philo %d is thinking\n", get_time () - phils->start_time, phils->id);
 	}
 	return(NULL);
 }

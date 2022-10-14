@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:46:57 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/13 14:21:54 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/14 14:43:36 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	create_philos(t_data *data, char **av)
 		data->philos[i].right_fork = &data->forks[(i + 1) % num];
 		data->philos[i].data = data;
 		printf ("%d %d \n", i ,((i + 1) % num));
+		// printf ("data philo[%d] adress %p \n", i, data->philos[i].data);
 		// if (i == (num - 1))
 		// 	data->philos[i].right_fork = &data->forks[(i + 1) % num];
 		i++;

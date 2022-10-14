@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:42:42 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/13 18:19:38 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/14 11:57:19 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ void	*routine(void *philos)
 		printf ("|philo %d has taken right fork| %lld |\n", phils->id, get_time () - phils->start_time);
 		printf ("%d is eating %lld \n",phils->id,  get_time () - phils->start_time);
 
-		// if (&data == NULL)
-		// 	printf ("anas 7mar \n");
-		// usleep  (phils->data->time_to_eat);
 		usleep (200);
 		pthread_mutex_unlock (phils->left_fork);
 		pthread_mutex_unlock (phils->right_fork);
@@ -69,24 +66,13 @@ void	*routine(void *philos)
 int main(int ac, char **av)
 {
 	int				j;
-	t_philo			*philos;
-	t_data			*data;
+	// t_philo			*philos;
+	t_data			data;
 	char			**arg;
 	int				i;																				
 	
 	i = 0;
 	j = 0;
-	
-	printf ("philos : %p\n", &philos);
-	printf ("data->philos : %p\n", &data->philos);
-	printf ("philos->data : %p\n", &philos->data);
-	printf ("data : %p\n", &data);
-	
-	printf ("philos 2: %p\n", &philos);
-	printf ("data->philos 2: %p\n", &data->philos);
-	printf ("data 2: %p\n", &data);
-	printf ("philos->data 2: %p\n", &philos->data);
-
 // philos[0].id = new_thread[0];=
 	// pthread_mutex_init(&mutex, NULL);
 

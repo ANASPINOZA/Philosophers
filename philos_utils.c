@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:46:57 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/14 14:43:36 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/16 20:49:50 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ void	create_philos(t_data *data, char **av)
 	data->forks = malloc(sizeof(pthread_mutex_t) * num);
 	if (!data->philos || !data->forks)
 		return ;
-	philos_init(data);
+	philos_init(data, av);
 	while (i < num)
 	{
 		data->philos[i].id = i + 1;
 		data->philos[i].start_time = get_time();
+		data->philos[i].predict_dying = get_time() + data->time_to_die;
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % num];
 		data->philos[i].data = data;
@@ -88,10 +89,11 @@ void	info_init(t_data *data)
 	data->time_to_die = 0;
 	data->time_to_eat = 0;
 	data->time_to_sleep = 0;
-	data->meals_must_eat = 0;
+	// data->meals_must_eat = 0;
+	data->died = 0;
 }
 
-void	philos_init(t_data *data)
+void	philos_init(t_data *data, char **av)
 {
 	int i;
 
@@ -100,8 +102,9 @@ void	philos_init(t_data *data)
 	{
 		data->philos[i].id = 0;
 		data->philos[i].meals = 0;
-		data->philos[i].start_time = 0;
 		data->philos[i].last_eat = 0;
+		data->philos[i].meals_must_eat = ft_atoi(av[5]);
+		printf ("philo %d meals %d\n", i, data->philos[i].meals_must_eat);
 		i++;
 	}
 }

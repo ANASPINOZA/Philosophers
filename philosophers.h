@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 11:58:47 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/13 14:06:39 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/16 20:48:20 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct s_data
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				meals_must_eat;
+	// int				meals_must_eat;
+	int				died;
 	pthread_mutex_t	*forks;
 	struct s_philo	*philos;
 } t_data;
@@ -41,12 +42,14 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	int				id;
 	int				n;
+	int				meals_must_eat;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	long long		start_time;
 	int				meals;
-	int				last_eat;
+	long long		last_eat;
 	t_data			*data;
+	long long		predict_dying;
 }	t_philo;
 
 char			**check_argument(int ac, char **av);
@@ -65,8 +68,8 @@ long long		get_time();
 void			thread_creation(t_data *data, int num);
 void			*routine(void *data);
 void			info_init(t_data *data);
-void			philos_init(t_data *data);
+void			philos_init(t_data *data, char **av);
 void 			init_forks (t_data *data);
 void 			join_threads (t_data *data);
-
+int				ft_usleep(long long msec, t_philo *philo);
 #endif

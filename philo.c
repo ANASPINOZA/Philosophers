@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:42:42 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/14 15:50:18 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/16 20:50:14 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,34 @@
 void	*routine(void *philos)
 {
 	t_philo	*phils;
-
 	int		i;
 	
 	i = 0;
 	phils = (t_philo *)philos;
+	int philo_eat = 0;
 	if (phils->id % 2 == 0)
-		usleep(phils->data->time_to_eat * 1000);
-	while (1)
+		ft_usleep(phils->data->time_to_eat, phils);
+	while (1 && !phils->data->died && philo_eat != phils->meals_must_eat)
 	{
+		// printf ("| %lld | philo %d is thinking .... \n", get_time () - phils->start_time, phils->id);
+		// if (phils->data->time_to_die <= phils->last_eat)
+		// 	return (printf ("| %lld | philo %d just died . \n", get_time ()\
+		// 	- phils->start_time, phils->id), NULL);
 		pthread_mutex_lock (phils->left_fork);
 		pthread_mutex_lock (phils->right_fork);
 		printf ("| %lld | philo %d has taken left fork\n", get_time () - phils->start_time, phils->id);
 		printf ("| %lld | philo %d has taken right fork\n", get_time () - phils->start_time, phils->id);
 		printf ("| %lld | philo %d is eating\n", get_time () - phils->start_time, phils->id);
-		usleep (phils->data->time_to_eat * 1000);
+		phils->last_eat = get_time() - phils->start_time;
+		phils->predict_dying = phils->last_eat + phils->data->time_to_die;
+		if (!ft_usleep (phils->data->time_to_eat, phils))
+			return (NULL);
+		philo_eat++;
 		pthread_mutex_unlock (phils->left_fork);
 		pthread_mutex_unlock (phils->right_fork);
 		printf ("| %lld | philo %d is sleeping\n", get_time () - phils->start_time, phils->id);
-		usleep (phils->data->time_to_sleep * 1000);
-		// printf ("| %lld | philo %d is thinking\n", get_time () - phils->start_time, phils->id);
+		if (!ft_usleep (phils->data->time_to_sleep, phils))
+			return(NULL);
 	}
 	return(NULL);
 }

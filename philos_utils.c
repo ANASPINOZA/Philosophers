@@ -6,13 +6,13 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:46:57 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/16 20:49:50 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/22 09:42:38 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	create_philos(t_data *data, char **av)
+void	create_philos(t_data *data, char **av, int ac)
 {
 	int				i;
 	int				num;
@@ -28,7 +28,7 @@ void	create_philos(t_data *data, char **av)
 	data->forks = malloc(sizeof(pthread_mutex_t) * num);
 	if (!data->philos || !data->forks)
 		return ;
-	philos_init(data, av);
+	philos_init(data, av, ac);
 	while (i < num)
 	{
 		data->philos[i].id = i + 1;
@@ -51,7 +51,6 @@ void	create_philos(t_data *data, char **av)
 	// }
 	init_forks (data);
 	thread_creation (data, num);
-
 }
 
 int	insert_infos(t_data *data, char** av)
@@ -93,7 +92,7 @@ void	info_init(t_data *data)
 	data->died = 0;
 }
 
-void	philos_init(t_data *data, char **av)
+void	philos_init(t_data *data, char **av, int ac)
 {
 	int i;
 
@@ -103,8 +102,10 @@ void	philos_init(t_data *data, char **av)
 		data->philos[i].id = 0;
 		data->philos[i].meals = 0;
 		data->philos[i].last_eat = 0;
-		data->philos[i].meals_must_eat = ft_atoi(av[5]);
-		printf ("philo %d meals %d\n", i, data->philos[i].meals_must_eat);
+		printf ("%d\n", ac);
+		if (ac == 6)
+			data->philos[i].meals_must_eat = ft_atoi(av[5]);
+		// printf ("philo %d meals %d\n", i, data->philos[i].meals_must_eat);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:42:42 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/16 20:50:14 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/22 09:41:51 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ void	*routine(void *philos)
 	int philo_eat = 0;
 	if (phils->id % 2 == 0)
 		ft_usleep(phils->data->time_to_eat, phils);
-	while (1 && !phils->data->died && philo_eat != phils->meals_must_eat)
+	while (1 && !phils->data->died)
 	{
+		if (philo_eat == phils->meals_must_eat)
+			return (NULL);
 		// printf ("| %lld | philo %d is thinking .... \n", get_time () - phils->start_time, phils->id);
 		// if (phils->data->time_to_die <= phils->last_eat)
 		// 	return (printf ("| %lld | philo %d just died . \n", get_time ()\
@@ -92,7 +94,7 @@ int main(int ac, char **av)
 	arg = check_argument(ac, av);
 	if (!arg)
 		return(write(1,"Error\n",6), 0);
-	create_philos(&data, av);
+	create_philos(&data, av, ac);
 	// create_philos(philos->data, av);
 	// j = 0;
 	// printf("i1: %d\n", i);

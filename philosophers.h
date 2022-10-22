@@ -6,7 +6,7 @@
 /*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 11:58:47 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/16 20:48:20 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/10/22 10:20:23 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,15 @@ char			*ft_strdup(char *s);
 int				ft_atoi(char *s);
 void			*routine(void *philos);
 int				insert_infos(t_data *data, char** av);
-void			create_philos(t_data *data, char **av);
+void			create_philos(t_data *data, char **av, int ac);
 void			*routine(void *philos);
 long long		get_time();
 void			thread_creation(t_data *data, int num);
 void			*routine(void *data);
 void			info_init(t_data *data);
-void			philos_init(t_data *data, char **av);
+void			philos_init(t_data *data, char **av, int ac);
 void 			init_forks (t_data *data);
 void 			join_threads (t_data *data);
 int				ft_usleep(long long msec, t_philo *philo);
+
 #endif

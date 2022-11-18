@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 11:58:47 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/22 10:20:23 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/11/18 20:13:46 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	// int				meals_must_eat;
+	int				num_of_eat;
 	int				died;
 	pthread_mutex_t	*forks;
 	struct s_philo	*philos;
@@ -72,5 +73,7 @@ void			philos_init(t_data *data, char **av, int ac);
 void 			init_forks (t_data *data);
 void 			join_threads (t_data *data);
 int				ft_usleep(long long msec, t_philo *philo);
+int				check_is_under_sixty(char	*num);
+
 
 #endif

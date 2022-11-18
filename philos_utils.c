@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philos_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:46:57 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/22 09:42:38 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/11/17 18:46:34 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	create_philos(t_data *data, char **av, int ac)
 
 int	insert_infos(t_data *data, char** av)
 {
-	int i;
+	// int i;
 	int num;
 
-	i = 0;
+	// i = 0;
 	data->num_of_philos = ft_atoi(av[1]);
 	num = data->num_of_philos;
 	data->time_to_die = ft_atoi(av[2]);
@@ -79,6 +79,7 @@ void	thread_creation(t_data *data, int num)
 		i++;
 	}
 	join_threads (data);
+	printf("here");
 }
 
 void	info_init(t_data *data)
@@ -88,6 +89,7 @@ void	info_init(t_data *data)
 	data->time_to_die = 0;
 	data->time_to_eat = 0;
 	data->time_to_sleep = 0;
+	data->num_of_eat = 0;
 	// data->meals_must_eat = 0;
 	data->died = 0;
 }
@@ -102,7 +104,7 @@ void	philos_init(t_data *data, char **av, int ac)
 		data->philos[i].id = 0;
 		data->philos[i].meals = 0;
 		data->philos[i].last_eat = 0;
-		printf ("%d\n", ac);
+		printf ("[%d]\n", ac);
 		if (ac == 6)
 			data->philos[i].meals_must_eat = ft_atoi(av[5]);
 		// printf ("philo %d meals %d\n", i, data->philos[i].meals_must_eat);
@@ -133,4 +135,11 @@ void join_threads (t_data *data)
 		pthread_join (data->philos[i].thread_id, NULL);
 		i++;
 	}
+	
+	// while (i < data->num_of_philos)
+	// {
+	// 	pthread_detach (data->philos[i].thread_id);
+	// 	i++;
+	// }
+	// pthread_exit (0);
 }

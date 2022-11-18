@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 18:30:08 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/07 18:26:42 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/11/18 20:15:29 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,18 @@
 char	**check_argument(int ac, char **av)
 {
 	int		i;
+	int		j;
 	(void)ac;
 	
 	i = 1;
+	j = 2;
 	while (av[i])
 	{
 		if (is_raw_number(av[i]))
 			return(NULL);
 		if (is_integer(av[i]))
+			return(NULL);
+		if (check_is_under_sixty(av[j]))
 			return(NULL);
 		i++;
 	}
@@ -79,5 +83,14 @@ int	check_is_int_range(char *num, int positive)
 {
 	if ((ft_strcmp(&num[positive], INT_MAX)) > 0)
 		return(1);
+	return(0);
+}
+
+int	check_is_under_sixty(char	*num)
+{
+	if (num[0] < '6')
+	{
+		return (1);
+	}
 	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 11:58:47 by aadnane           #+#    #+#             */
-/*   Updated: 2022/11/18 20:13:46 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/11/20 13:13:27 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ typedef struct s_data
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	int				exit;
 	// int				meals_must_eat;
 	int				num_of_eat;
 	int				died;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	print_lock;
 	struct s_philo	*philos;
 } t_data;
 
@@ -46,6 +48,7 @@ typedef struct s_philo
 	int				meals_must_eat;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	death_lock;
 	long long		start_time;
 	int				meals;
 	long long		last_eat;
@@ -74,6 +77,8 @@ void 			init_forks (t_data *data);
 void 			join_threads (t_data *data);
 int				ft_usleep(long long msec, t_philo *philo);
 int				check_is_under_sixty(char	*num);
+void			print_status(t_philo philos, const char *philo , const char *msg);
+void			check_death(t_data *data);
 
 
 #endif

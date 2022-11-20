@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:31:01 by aadnane           #+#    #+#             */
-/*   Updated: 2022/10/07 19:34:13 by aadnane          ###   ########.fr       */
+/*   Updated: 2022/11/20 12:33:45 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,16 @@ int		ft_atoi(char *s)
 		s++;
 	}
 	return (sign * (int)r);
+}
+
+void	print_status(t_philo philos, const char *philo , const char *msg)
+{
+	long long	action_time;
+	
+	action_time = get_time() - philos.start_time;
+	pthread_mutex_lock(&philos.data->print_lock);
+	printf ("| %lld | %s %d %s\n", action_time, philo , philos.id, msg);
+	if (philos.data->died == 0 \
+		|| philos.data->num_of_eat != philos.data->num_of_philos)
+		pthread_mutex_unlock(&philos.data->print_lock);
 }

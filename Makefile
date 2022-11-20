@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+         #
+#    By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/23 11:54:10 by aadnane           #+#    #+#              #
-#    Updated: 2022/10/12 13:05:11 by aadnane          ###   ########.fr        #
+#    Updated: 2022/11/20 13:15:36 by anaspinoza       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 FLAGS = -Wall -Wextra -Werror 
-SRCS = parsing.c philo.c utils.c philos_utils.c time_utils.c #mandatory files
+SRCS = parsing.c philo.c utils.c philos_utils.c time_utils.c \
+ aux_philos_utils.c#mandatory files
 
 SRCB = #bonus files
 

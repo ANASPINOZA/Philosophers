@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:10:46 by aadnane           #+#    #+#             */
-/*   Updated: 2022/11/16 22:17:40 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/11/20 14:30:03 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ int	ft_usleep(long long msec, t_philo *philo)
 		if (get_time() - philo->start_time >= philo->predict_dying && !philo->data->died)
 		{
 			philo->data->died = 1;
-			printf ("| %lld | philo %d just died . \n", get_time ()\
-			- philo->start_time, philo->id);
+			// print_status (*philo, "philo", "just died .");
+			philo->data->exit = 1;
 		}
 		if (philo->data->died == 1)
+		{
 			return (0);
+		}
 		usleep(500);
 	}
 	return (1);

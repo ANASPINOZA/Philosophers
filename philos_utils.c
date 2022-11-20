@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:46:57 by aadnane           #+#    #+#             */
-/*   Updated: 2022/11/17 18:46:34 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/11/20 13:38:58 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	create_philos(t_data *data, char **av, int ac)
 	int				num;
 	
 	i = 0;
-
 	info_init(data);
 	// printf("here5\n");
 	num = insert_infos(data, av);
@@ -37,7 +36,6 @@ void	create_philos(t_data *data, char **av, int ac)
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % num];
 		data->philos[i].data = data;
-		printf ("%d %d \n", i ,((i + 1) % num));
 		// printf ("data philo[%d] adress %p \n", i, data->philos[i].data);
 		// if (i == (num - 1))
 		// 	data->philos[i].right_fork = &data->forks[(i + 1) % num];
@@ -50,6 +48,7 @@ void	create_philos(t_data *data, char **av, int ac)
 	// 	j++;
 	// }
 	init_forks (data);
+	pthread_mutex_init(&data->print_lock, NULL);
 	thread_creation (data, num);
 }
 
@@ -73,13 +72,19 @@ void	thread_creation(t_data *data, int num)
 	int	i;
 	
 	i = 0;
+	while (i < num)
+	{
+		pthread_mutex_init(&data->philos[i].death_lock, NULL);
+		i++;	
+	}
+	i = 0;
 	while(i < num)
 	{
 		pthread_create(&data->philos[i].thread_id, NULL, &routine, &data->philos[i]);
 		i++;
 	}
 	join_threads (data);
-	printf("here");
+	// printf("here");
 }
 
 void	info_init(t_data *data)
@@ -90,6 +95,7 @@ void	info_init(t_data *data)
 	data->time_to_eat = 0;
 	data->time_to_sleep = 0;
 	data->num_of_eat = 0;
+	data->exit = 0;
 	// data->meals_must_eat = 0;
 	data->died = 0;
 }
@@ -104,9 +110,10 @@ void	philos_init(t_data *data, char **av, int ac)
 		data->philos[i].id = 0;
 		data->philos[i].meals = 0;
 		data->philos[i].last_eat = 0;
-		printf ("[%d]\n", ac);
 		if (ac == 6)
 			data->philos[i].meals_must_eat = ft_atoi(av[5]);
+		else
+			data->philos[i].meals_must_eat = 0;
 		// printf ("philo %d meals %d\n", i, data->philos[i].meals_must_eat);
 		i++;
 	}
@@ -130,16 +137,16 @@ void join_threads (t_data *data)
 	int i;
 
 	i = 0;
-	while (i < data->num_of_philos)
-	{
-		pthread_join (data->philos[i].thread_id, NULL);
-		i++;
-	}
-	
 	// while (i < data->num_of_philos)
 	// {
-	// 	pthread_detach (data->philos[i].thread_id);
+	// 	pthread_join (data->philos[i].thread_id, NULL);
 	// 	i++;
 	// }
+	
+	while (i < data->num_of_philos)
+	{
+			pthread_detach (data->philos[i].thread_id);
+			i++;
+	}
 	// pthread_exit (0);
 }

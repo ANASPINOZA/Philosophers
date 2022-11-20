@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 18:30:08 by aadnane           #+#    #+#             */
-/*   Updated: 2022/11/18 20:15:29 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/11/19 18:24:51 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**check_argument(int ac, char **av)
 	
 	i = 1;
 	j = 2;
-	while (av[i])
+	while (av[i] && av[j])
 	{
 		if (is_raw_number(av[i]))
 			return(NULL);
@@ -29,6 +29,7 @@ char	**check_argument(int ac, char **av)
 		if (check_is_under_sixty(av[j]))
 			return(NULL);
 		i++;
+		j++;
 	}
 	return (av);
 }
@@ -88,9 +89,10 @@ int	check_is_int_range(char *num, int positive)
 
 int	check_is_under_sixty(char	*num)
 {
-	if (num[0] < '6')
-	{
+	int		size;
+	
+	size = ft_strlen(num);
+	if (size == 2 && num[0] < '6')
 		return (1);
-	}
 	return(0);
 }

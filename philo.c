@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:42:42 by aadnane           #+#    #+#             */
-/*   Updated: 2022/11/17 18:32:15 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/11/20 13:28:47 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,46 +70,46 @@ void	*routine(void *philos)
 	// i = 0;
 	phils = (t_philo *)philos;
 	int philo_eat = 0;
-	// if (phils->id % 2 == 0)
-	// 	ft_usleep(phils->data->time_to_eat, phils);
+	if (phils->id % 2 == 0)
+		ft_usleep(phils->data->time_to_eat, phils);
 	while (1 && !phils->data->died)
 	{
 		if (phils->meals_must_eat && philo_eat == phils->meals_must_eat)
 			phils->data->num_of_eat++;
 		if (phils->data->num_of_eat == phils->data->num_of_philos)
-			return (NULL);
+			return (0);
 			// return (NULL);
 		// printf ("| %lld | philo %d is thinking .... \n", get_time () - phils->start_time, phils->id);
 		// if (phils->data->time_to_die <= phils,->last_eat)
 		// 	return (printf ("| %lld | philo %d just died . \n", get_time () /*\'/'*/
 		// 	- phils->start_time, phils->id), NULL);
 		// start_eating(phils, &philo_eat);
-		if (phils->id % 2 != 0)
-			pthread_mutex_lock (phils->right_fork);
-		else
-			pthread_mutex_lock (phils->left_fork);
-		if (phils->id % 2 != 0)
-			pthread_mutex_lock (phils->left_fork);
-		else
-			pthread_mutex_lock (phils->right_fork);
+		// if (phils->id % 2 != 0)
+		// 	pthread_mutex_lock (phils->right_fork);
+		// else
+		// 	pthread_mutex_lock (phils->left_fork);
+		// if (phils->id % 2 != 0)
+		// 	pthread_mutex_lock (phils->left_fork);
+		// else
+		// 	pthread_mutex_lock (phils->right_fork);
 		// pthread_mutex_lock (phils->left_fork);
 		// pthread_mutex_lock (phils->right_fork);
-		printf ("| %lld | philo %d has taken fork\n", get_time () - phils->start_time, phils->id);
-		printf ("| %lld | philo %d has taken fork\n", get_time () - phils->start_time, phils->id);
-		printf ("| %lld | philo %d is eating\n", get_time () - phils->start_time, phils->id);
+		print_status(*phils, "philo","has taken fork");
+		print_status(*phils, "philo","has taken fork");
+		print_status(*phils, "philo", "is eating");
 		phils->last_eat = get_time() - phils->start_time;
 		phils->predict_dying = phils->last_eat + phils->data->time_to_die;
 		if (!ft_usleep (phils->data->time_to_eat, phils))
-			return (NULL);
+			return (0);
 		philo_eat++;
 		pthread_mutex_unlock (phils->left_fork);
 		pthread_mutex_unlock (phils->right_fork);
 		// start_sleeping(phils);
-		printf ("| %lld | philo %d is sleeping\n", get_time () - phils->start_time, phils->id);
+		print_status (*phils, "philo", "is sleeping");
 		if (!ft_usleep (phils->data->time_to_sleep, phils))
-			return(NULL);
+			return(0);
 	}
-	return(NULL);
+	return(0);
 }
 
 int main(int ac, char **av)
@@ -119,7 +119,6 @@ int main(int ac, char **av)
 	t_data			data;
 	char			**arg;
 	// int				i;																				
-	
 	// i = 0;
 	// j = 0;
 // philos[0].id = new_thread[0];=
@@ -147,5 +146,7 @@ int main(int ac, char **av)
 	// 	j++;
 	// }
 	// printf("i2: %d\n", i);
+	// pthread_exit(0);
+	check_death(&data);
 	return (0);
 }

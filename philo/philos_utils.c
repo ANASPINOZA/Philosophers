@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:46:57 by aadnane           #+#    #+#             */
-/*   Updated: 2022/11/22 17:35:25 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/11/24 15:43:29 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	create_philos(t_data *data, char **av, int ac)
 		data->philos[i].id = i + 1;
 		data->philos[i].start_time = get_time();
 		data->philos[i].predict_dying = get_time() + data->time_to_die;
-		printf("start_time : %lld predict_time : %lld \n", data->philos[i].start_time 
-			 , data->philos[i].predict_dying);
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % num];
 		data->philos[i].data = data;

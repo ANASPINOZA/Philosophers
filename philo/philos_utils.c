@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:46:57 by aadnane           #+#    #+#             */
-/*   Updated: 2022/11/24 15:43:29 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/12/26 18:58:18 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	create_philos(t_data *data, char **av, int ac)
 	
 	i = 0;
 	info_init(data);
-	// printf("here5\n");
 	num = insert_infos(data, av);
-	// printf ("|%d|\n", num);
 	data->proce_start_time = get_time();
 	data->philos = malloc(sizeof(t_philo) * num);
 	data->forks = malloc(sizeof(pthread_mutex_t) * num);
@@ -36,17 +34,8 @@ void	create_philos(t_data *data, char **av, int ac)
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % num];
 		data->philos[i].data = data;
-		// printf ("data philo[%d] adress %p \n", i, data->philos[i].data);
-		// if (i == (num - 1))
-		// 	data->philos[i].right_fork = &data->forks[(i + 1) % num];
 		i++;
 	}
-	// printf("starting time for the process : %lld\n", data->proce_start_time);
-	// while (j < data->num_of_philos)
-	// {
-	// 	printf("starting time for each philo : %lld\n", data->philos[j].start_time);
-	// 	j++;
-	// }
 	init_forks (data);
 	pthread_mutex_init(&data->print_lock, NULL);
 	thread_creation (data, num);
@@ -54,10 +43,8 @@ void	create_philos(t_data *data, char **av, int ac)
 
 int	insert_infos(t_data *data, char** av)
 {
-	// int i;
 	int num;
 
-	// i = 0;
 	data->num_of_philos = ft_atoi(av[1]);
 	num = data->num_of_philos;
 	data->time_to_die = ft_atoi(av[2]);
@@ -78,7 +65,6 @@ void	thread_creation(t_data *data, int num)
 		i++;
 	}
 	join_threads (data);
-	// printf("here");
 }
 
 void	info_init(t_data *data)
@@ -89,7 +75,6 @@ void	info_init(t_data *data)
 	data->time_to_eat = 0;
 	data->time_to_sleep = 0;
 	data->num_of_eat = 0;
-	// data->meals_must_eat = 0;
 	data->died = 0;
 }
 
@@ -107,7 +92,6 @@ void	philos_init(t_data *data, char **av, int ac)
 			data->philos[i].meals_must_eat = ft_atoi(av[5]);
 		else
 			data->philos[i].meals_must_eat = 0;
-		// printf ("philo %d meals %d\n", i, data->philos[i].meals_must_eat);
 		i++;
 	}
 }
@@ -130,16 +114,10 @@ void join_threads (t_data *data)
 	int i;
 
 	i = 0;
-	// while (i < data->num_of_philos)
-	// {
-	// 	pthread_join (data->philos[i].thread_id, NULL);
-	// 	i++;
-	// }
 	
 	while (i < data->num_of_philos)
 	{
 		pthread_detach (data->philos[i].thread_id);
 		i++;
 	}
-	// pthread_exit (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:42:42 by aadnane           #+#    #+#             */
-/*   Updated: 2022/12/28 11:18:34 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/12/28 11:24:22 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	*routine(void *philos)
 		phils->predict_dying =  get_time() + phils->data->time_to_die;
 		if (!ft_usleep (phils->data->time_to_eat, phils))
 			return (0);
+			
 		philo_eat++;
 		philos_put_forks(phils);
 		print_status (*phils, "philo", "is sleeping");

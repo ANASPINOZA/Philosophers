@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:42:42 by aadnane           #+#    #+#             */
-/*   Updated: 2022/12/28 11:24:41 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/12/28 14:59:06 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	*routine(void *philos)
 	{
 		if (phils->meals_must_eat && philo_eat == phils->meals_must_eat)
 			phils->data->num_of_eat++;
-		if (phils->data->num_of_eat == phils->data->num_of_philos)
-			return (0);
 		philos_take_forks(phils);
 		print_status(*phils, "philo", "is eating");
 		phils->predict_dying =  get_time() + phils->data->time_to_die;

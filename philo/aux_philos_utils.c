@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 18:46:29 by anaspinoza        #+#    #+#             */
-/*   Updated: 2022/12/26 19:00:25 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/12/28 14:54:37 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_death(t_data *data)
 		}
 		if (data->num_of_eat == data->num_of_philos)
 		{
-			printf ("ALL PHOLOSOPHERS ATE THE REQUIRED MEALS\n");
+			print_status (data->philos[i], NULL, NULL);
 			break ;
 		}
 		i++;

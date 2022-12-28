@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:31:01 by aadnane           #+#    #+#             */
-/*   Updated: 2022/11/20 12:33:45 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/12/28 14:56:31 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ void	print_status(t_philo philos, const char *philo , const char *msg)
 	
 	action_time = get_time() - philos.start_time;
 	pthread_mutex_lock(&philos.data->print_lock);
+	if (!philo && !msg)
+	{
+		printf ("ALL PHOLOSOPHERS ATE THE REQUIRED MEALS\n");
+		return ;
+	}
 	printf ("| %lld | %s %d %s\n", action_time, philo , philos.id, msg);
 	if (philos.data->died == 0 \
 		|| philos.data->num_of_eat != philos.data->num_of_philos)

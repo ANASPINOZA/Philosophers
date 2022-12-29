@@ -6,7 +6,7 @@
 /*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:42:42 by aadnane           #+#    #+#             */
-/*   Updated: 2022/12/28 14:59:06 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2022/12/29 10:03:06 by anaspinoza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	clean_tools(t_data *data)
 		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&data->print_lock);
 	free(data->forks);
 	free(data->philos);
 }

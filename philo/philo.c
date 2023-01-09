@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:42:42 by aadnane           #+#    #+#             */
-/*   Updated: 2022/12/29 10:03:06 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2023/01/06 15:09:56 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	clean_tools(t_data *data)
 void	philos_take_forks(t_philo *phils)
 {
 	pthread_mutex_lock (phils->left_fork);
+	print_status(*phils, "philo", "has taken fork");
 	pthread_mutex_lock (phils->right_fork);
-	print_status(*phils, "philo","has taken fork");
-	print_status(*phils, "philo","has taken fork");
+	print_status(*phils, "philo", "has taken fork");
 }
 
 void	philos_put_forks(t_philo *phils)
@@ -45,7 +45,7 @@ void	*routine(void *philos)
 {
 	t_philo	*phils;
 	int		philo_eat;
-	
+
 	philo_eat = 0;
 	phils = (t_philo *)philos;
 	if (phils->id % 2 == 0)
@@ -56,28 +56,29 @@ void	*routine(void *philos)
 			phils->data->num_of_eat++;
 		philos_take_forks(phils);
 		print_status(*phils, "philo", "is eating");
-		phils->predict_dying =  get_time() + phils->data->time_to_die;
+		phils->predict_dying = get_time() + phils->data->time_to_die;
 		if (!ft_usleep (phils->data->time_to_eat, phils))
 			return (0);
 		philo_eat++;
 		philos_put_forks(phils);
 		print_status (*phils, "philo", "is sleeping");
 		if (!ft_usleep (phils->data->time_to_sleep, phils))
-			return(0);
+			return (0);
+		print_status (*phils, "philo", "is thinking");
 	}
-	return(0);
+	return (0);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data			data;
 	char			**arg;		
 
 	if (ac != 5 && ac != 6)
-		return(write(1,"Error\n",6), 0);
+		return (write(2, "Error\n", 6), 0);
 	arg = check_argument(ac, av);
 	if (!arg)
-		return(write(1,"Error\n",6), 0);
+		return (write(2, "Error\n", 6), 0);
 	create_philos(&data, av, ac);
 	check_death(&data);
 	clean_tools(&data);

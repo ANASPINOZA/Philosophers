@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+        */
+/*   By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:31:01 by aadnane           #+#    #+#             */
-/*   Updated: 2022/12/29 10:04:25 by anaspinoza       ###   ########.fr       */
+/*   Updated: 2023/01/06 14:12:58 by aadnane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_strdup(char *s)
 	return (ptr);
 }
 
-int		ft_atoi(char *s)
+int	ft_atoi(char *s)
 {
 	int		sign;
 	long	r;
@@ -76,10 +76,10 @@ int		ft_atoi(char *s)
 	return (sign * (int)r);
 }
 
-void	print_status(t_philo philos, const char *philo , const char *msg)
+void	print_status(t_philo philos, const char *philo, const char *msg)
 {
 	long long	action_time;
-	
+
 	action_time = get_time() - philos.start_time;
 	pthread_mutex_lock(&philos.data->print_lock);
 	if (!philo && !msg)
@@ -87,7 +87,7 @@ void	print_status(t_philo philos, const char *philo , const char *msg)
 		printf ("ALL PHOLOSOPHERS ATE THE REQUIRED MEALS\n");
 		return ;
 	}
-	printf ("| %lld | %s %d %s\n", action_time, philo , philos.id, msg);
+	printf ("| %lld | %s %d %s\n", action_time, philo, philos.id, msg);
 	if (philos.data->died == 0 \
 		|| philos.data->num_of_eat != philos.data->num_of_philos)
 		pthread_mutex_unlock(&philos.data->print_lock);

@@ -3,30 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anaspinoza <anaspinoza@student.42.fr>      +#+  +:+       +#+         #
+#    By: aadnane <aadnane@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/23 11:54:10 by aadnane           #+#    #+#              #
-#    Updated: 2022/11/20 13:15:36 by anaspinoza       ###   ########.fr        #
+#    Updated: 2023/01/06 22:47:41 by aadnane          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = cc
 FLAGS = -Wall -Wextra -Werror 
 SRCS = parsing.c philo.c utils.c philos_utils.c time_utils.c \
  aux_philos_utils.c#mandatory files
 
-SRCB = #bonus files
-
 OBJS = $(SRCS:.c=.o)
-OBJB = $(SRCB:.c=.o)
 NAME = philo
-BONUS = philo_bonus
 HEADER = philosophers.h
 
 all : $(NAME)
-
-$(BONUS) : $(OBJB)
-	$(CC)  $^ -o $@
 
 $(NAME) : $(OBJS)
 	$(CC) -lpthread $^ -o $@
@@ -35,16 +28,12 @@ $(NAME) : $(OBJS)
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean :
-	rm -rf $(OBJS) $(OBJB)
+	rm -rf $(OBJS)
 
 fclean : clean
-	rm -rf $(NAME) $(BONUS)
+	rm -rf $(NAME)
 
 deyoo :all clean
 	clear
-
-b:
-	make bonus && make clean && clear
-bonus : $(BONUS)
 
 re : fclean all
